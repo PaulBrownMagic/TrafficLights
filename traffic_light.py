@@ -10,7 +10,7 @@ class Light:
     grey = (100, 100, 100)
     colours = {'red': (255, 0, 0),
                'amber': (255, 155, 0),
-               'green': (0, 255, 0)}
+               'green': (0, 200, 0)}
     radius = 55
 
     def __init__(self, pos, colour):
