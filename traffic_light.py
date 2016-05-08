@@ -12,6 +12,7 @@ class Light:
                'amber': (255, 155, 0),
                'green': (0, 200, 0)}
     radius = 55
+    state = 0
 
     def __init__(self, pos, colour):
         """
@@ -28,6 +29,7 @@ class Light:
         :return: None
         """
         pygame.draw.circle(TrafficLight.screen, self.grey, self.pos, self.radius)
+        self.state = 0
 
     def on(self):
         """
@@ -35,6 +37,7 @@ class Light:
         :return: None
         """
         pygame.draw.circle(TrafficLight.screen, self.colour, self.pos, self.radius)
+        self.state = 1
 
     def update(self, state):
         """
@@ -69,8 +72,7 @@ class TrafficLight:
         self.amber = Light((self.width//2, self.height//2), 'amber')
         self.green = Light((self.width//2, self.height - self.height//6), 'green')
 
-    @staticmethod
-    def event_loop():
+    def event_loop(self):
         """
         Enables close window to work, however it is only called when the output function is called.
         :return: None
@@ -79,6 +81,13 @@ class TrafficLight:
             if event.type == QUIT:
                 pygame.quit()
                 sys.exit()
+            if event.type == KEYDOWN:
+                if event.key == K_r:
+                    self.red.update(1 - self.red.state)
+                elif event.key == K_a:
+                    self.amber.update(1 - self.amber.state)
+                elif event.key == K_g:
+                    self.green.update(1 - self.green.state)
 
     def run(self):
         """
@@ -102,6 +111,13 @@ def output(colour, state):
     colours[colour].update(state)
     traffic_light.run()
 
+
+def update():
+    """
+    function to provide simple interface for use when imported.
+    :return: None
+    """
+    traffic_light.run()
 
 pygame.init()
 traffic_light = TrafficLight()
