@@ -62,6 +62,7 @@ class TrafficLight:
     screen = pygame.display.set_mode((width, height))
     pygame.display.set_caption("Traffic Light")
     clock = pygame.time.Clock()
+    button_pressed = False
 
     def __init__(self):
         """
@@ -88,6 +89,8 @@ class TrafficLight:
                     self.amber.update(1 - self.amber.state)
                 elif event.key == K_g:
                     self.green.update(1 - self.green.state)
+                elif event.key == K_RETURN:
+                    TrafficLight.button_pressed = True
 
     def run(self):
         """
